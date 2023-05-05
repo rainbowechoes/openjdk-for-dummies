@@ -1,0 +1,16 @@
+FROM ubuntu:16.04
+
+MAINTAINER yangjian
+
+# 安装必要的依赖
+RUN \
+  apt-get update && \
+  apt-get install -y \
+    libxt-dev zip pkg-config libx11-dev libxext-dev build-essential \
+    autoconf file libxrandr-dev libfontconfig1-dev\
+    libxrender-dev libxtst-dev libasound2-dev libcups2-dev libfreetype6-dev && \
+  rm -rf /var/lib/apt/lists/*
+
+# 拷贝编译好的OpenJDK 17到镜像中的/usr/lib/jvm/openjdk-17目录
+# COPY --from=icyfenix/openjdk-build-environment /dist/jdk /usr/lib/jvm/openjdk-17
+ADD bootstrap /usr/lib/jvm/openjdk-17
